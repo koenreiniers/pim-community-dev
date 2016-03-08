@@ -32,7 +32,7 @@ class FamilyRepositorySpec extends ObjectBehavior
         $this->shouldImplement('Pim\Bundle\CatalogBundle\Repository\FamilyRepositoryInterface');
     }
 
-    function it_count_all_familys($em, QueryBuilder $queryBuilder, AbstractQuery $query)
+    function it_count_all_families($em, QueryBuilder $queryBuilder, AbstractQuery $query)
     {
         $em->createQueryBuilder()->willReturn($queryBuilder);
         $queryBuilder->select('f')->willReturn($queryBuilder);
@@ -69,4 +69,3 @@ class FamilyRepositorySpec extends ObjectBehavior
         $this->hasAttribute(10, 'attribute_code')->shouldReturn(false);
     }
 }
-

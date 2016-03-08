@@ -237,7 +237,7 @@ class ProductRepositorySpec extends ObjectBehavior
         $query->getScalarResult()->willReturn(['id' => 10]);
         $this->hasAttributeInFamily($product, 'attribute_code')->shouldReturn(true);
 
-        $query->getSingleScalarResult()->willReturn(null);
+        $query->getScalarResult()->willReturn(null);
         $this->hasAttributeInFamily($product, 'attribute_code')->shouldReturn(false);
     }
 

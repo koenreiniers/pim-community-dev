@@ -256,7 +256,7 @@ class FamilyRepository extends EntityRepository implements FamilyRepositoryInter
             ->getQuery();
 
         try {
-            return $query->getSingleResult();
+            return !empty($query->getSingleScalarResult());
         } catch (NoResultException $e) {
             return false;
         }
