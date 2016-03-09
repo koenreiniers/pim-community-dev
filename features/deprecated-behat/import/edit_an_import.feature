@@ -9,7 +9,7 @@ Feature: Edit an import
     And I am logged in as "Peter"
 
   Scenario: Successfully edit an import job
-    Given I am on the "footwear_product_import" import job edit page
+    Given I am on the "csv_footwear_product_import" import job edit page
     Then I should see the Code field
     And the field Code should be disabled
     When I fill in the following information:
@@ -19,7 +19,7 @@ Feature: Edit an import
 
   @javascript
   Scenario: Successfully update import job configuration
-    Given I am on the "footwear_product_import" import job edit page
+    Given I am on the "csv_footwear_product_import" import job edit page
     Then I should see the File, Allow file upload, Delimiter, Enclosure, Escape, Enable the product, Categories column, Family column, Groups column and Real time history update fields
     When I fill in the following information:
       | File              | file.csv |
@@ -45,7 +45,7 @@ Feature: Edit an import
     And I should see "Groups column grp"
 
   Scenario: Successfully display a dialog when we quit a page with unsaved changes
-    Given I am on the "footwear_product_import" import job edit page
+    Given I am on the "csv_footwear_product_import" import job edit page
     When I fill in the following information:
       | Label | My import |
     When I click on the Akeneo logo
@@ -55,7 +55,7 @@ Feature: Edit an import
 
   @javascript @skip
   Scenario: Successfully display a message when there are unsaved changes
-    Given I am on the "footwear_product_import" import job edit page
+    Given I am on the "csv_footwear_product_import" import job edit page
     When I fill in the following information:
       | Label | My import |
     Then I should see "There are unsaved changes."

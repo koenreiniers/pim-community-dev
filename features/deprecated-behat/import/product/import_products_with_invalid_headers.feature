@@ -15,11 +15,11 @@ Feature: Execute a job
       sku;comment-fr_FR-mobile
       SKU-001;"my comment"
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "Status: FAILED"
     And I should see "The field \"comment-fr_FR-mobile\" is not well-formatted, attribute \"comment\" expects no locale, no scope, no currency"
 
@@ -30,11 +30,11 @@ Feature: Execute a job
       sku;comment-mobile
       SKU-001;"my comment"
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "Status: FAILED"
     And I should see "The field \"comment-mobile\" is not well-formatted, attribute \"comment\" expects no locale, no scope, no currency"
 
@@ -45,11 +45,11 @@ Feature: Execute a job
       sku;comment-fr_FR
       SKU-001;"my comment"
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "Status: FAILED"
     And I should see "The field \"comment-fr_FR\" is not well-formatted, attribute \"comment\" expects no locale, no scope, no currency"
 
@@ -60,11 +60,11 @@ Feature: Execute a job
       sku;name-fr_CA
       SKU-001;"my name"
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "Status: FAILED"
     And I should see "Locale fr_CA does not exist"
 
@@ -75,11 +75,11 @@ Feature: Execute a job
       sku;description-en_US-noexistingchannel
       SKU-001;"my description"
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "Status: FAILED"
     And I should see "Channel noexistingchannel does not exist"
 

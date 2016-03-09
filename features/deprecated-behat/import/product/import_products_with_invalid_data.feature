@@ -20,11 +20,11 @@ Feature: Execute a job
       SKU-002;50 EUR
       SKU-003;invalid
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "skipped 1"
     And there should be 2 products
     And the product "SKU-001" should have the following value:
@@ -46,11 +46,11 @@ Feature: Execute a job
       SKU-002;50 EUR
       SKU-003;invalid
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "skipped 1"
     And there should be 3 products
     And the product "SKU-001" should have the following value:
@@ -68,11 +68,11 @@ Feature: Execute a job
       SKU-001;4000 CENTIMETER
       SKU-002;invalid
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "skipped 1"
     And there should be 1 products
     And the product "SKU-001" should have the following value:
@@ -90,11 +90,11 @@ Feature: Execute a job
       SKU-001;4000 CENTIMETER
       SKU-002;invalid
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "skipped 1"
     And there should be 2 products
     And the product "SKU-001" should have the following value:
@@ -113,11 +113,11 @@ Feature: Execute a job
       SKU-001;2000
       SKU-002;invalid_stock
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "skipped 1"
     And there should be 1 product
     And the product "SKU-001" should have the following value:
@@ -135,11 +135,11 @@ Feature: Execute a job
       SKU-001;invalid_stock
       SKU-002;100
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "skipped 1"
     And there should be 2 products
     And the product "SKU-001" should have the following value:
@@ -159,14 +159,14 @@ Feature: Execute a job
       bic-core-148;sneakers;;invalid-front-view.gif;"Bic Core 148";invalid-user-manual.txt;2014_collection
       fanatic-freewave-76;sneakers;;fanatic-freewave-76.gif;"Fanatic Freewave 76";fanatic-freewave-76.txt;2014_collection
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    And import directory of "footwear_product_import" contains the following media:
+    And import directory of "csv_footwear_product_import" contains the following media:
       | fanatic-freewave-76.gif |
       | fanatic-freewave-76.txt |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     And there should be 1 product
     And I should see "frontView: File not found"
     And I should see "userManual: File not found"
@@ -191,14 +191,14 @@ Feature: Execute a job
       bic-core-148;sneakers;;invalid-front-view.gif;"New Bic Core 148";invalid-user-manual.txt;2014_collection
       fanatic-freewave-76;sneakers;;fanatic-freewave-76.gif;"New Fanatic Freewave 76";fanatic-freewave-76.txt;2014_collection
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    And import directory of "footwear_product_import" contains the following media:
+    And import directory of "csv_footwear_product_import" contains the following media:
       | fanatic-freewave-76.gif |
       | fanatic-freewave-76.txt |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "skipped 1"
     And there should be 2 products
     And I should see "frontView: File not found"
@@ -222,11 +222,11 @@ Feature: Execute a job
       SKU-002;product 002
       ;last invalid product
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "skipped 3"
     And I should see "identifier: This value should not be blank"
     And there should be 1 product
@@ -241,11 +241,11 @@ Feature: Execute a job
       SKU-001;high heels
       SKU-001;invalid high heels
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "The unique code"
     And I should see "was already read in this file"
     And there should be 1 product
@@ -260,11 +260,11 @@ Feature: Execute a job
       SKU-001;high heels;red high heels
       SKU-002;rangers;black rangers
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "PRODUCT IMPORT Locale wronglocale does not exist."
     And I should see "FAILED"
     And there should be 0 product
@@ -277,11 +277,11 @@ Feature: Execute a job
       SKU-001;high heels;red high heels
       SKU-002;rangers;black rangers
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "PRODUCT IMPORT Channel wrongchannel does not exist."
     And I should see "FAILED"
     And there should be 0 product
@@ -294,11 +294,11 @@ Feature: Execute a job
       SKU-001;100
       SKU-002;50
       """
-    And the following job "footwear_product_import" configuration:
+    And the following job "csv_footwear_product_import" configuration:
       | filePath | %file to import% |
-    When I am on the "footwear_product_import" import job page
+    When I am on the "csv_footwear_product_import" import job page
     And I launch the import job
-    And I wait for the "footwear_product_import" job to finish
+    And I wait for the "csv_footwear_product_import" job to finish
     Then I should see "PRODUCT IMPORT Currency FCFA does not exist."
     And I should see "FAILED"
     And there should be 0 product
