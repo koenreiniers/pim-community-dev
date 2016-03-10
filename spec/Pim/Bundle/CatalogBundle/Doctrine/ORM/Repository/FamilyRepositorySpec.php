@@ -54,6 +54,7 @@ class FamilyRepositorySpec extends ObjectBehavior
         $queryBuilder->leftJoin('f.attributes', 'a')->willReturn($queryBuilder);
         $queryBuilder->where('f.id = :id')->willReturn($queryBuilder);
         $queryBuilder->andWhere('a.code = :code')->willReturn($queryBuilder);
+        $queryBuilder->addGroupBy('a.id')->willReturn($queryBuilder);
         $queryBuilder->setMaxResults(1)->willReturn($queryBuilder);
         $queryBuilder->setParameters([
             'id' => 10,
@@ -62,10 +63,10 @@ class FamilyRepositorySpec extends ObjectBehavior
 
         $queryBuilder->getQuery()->willReturn($query);
 
-        $query->getSingleScalarResult()->willReturn(['id' => 12]);
+        $query->getSingleResult()->willReturn(['id' => 12]);
         $this->hasAttribute(10, 'attribute_code')->shouldReturn(true);
 
-        $query->getSingleScalarResult()->willReturn(null);
+        $query->getSingleResult()->willReturn(null);
         $this->hasAttribute(10, 'attribute_code')->shouldReturn(false);
     }
 }

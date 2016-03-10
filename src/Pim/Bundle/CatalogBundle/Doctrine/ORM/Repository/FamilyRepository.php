@@ -253,10 +253,11 @@ class FamilyRepository extends EntityRepository implements FamilyRepositoryInter
                 'id'   => $id,
                 'code' => $attributeCode,
             ])
+            ->addGroupBy('a.id')
             ->getQuery();
 
         try {
-            $result = $query->getSingleScalarResult();
+            $result = $query->getSingleResult();
 
             return !empty($result);
         } catch (NoResultException $e) {
