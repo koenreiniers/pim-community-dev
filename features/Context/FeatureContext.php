@@ -11,6 +11,10 @@ use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Context\Spin\SpinCapableTrait;
 use Pim\Behat\Context\Domain\Collect\ImportProfilesContext;
 use Pim\Behat\Context\Domain\Enrich\AttributeTabContext;
+use Pim\Behat\Context\Domain\Enrich\GridDataContext;
+use Pim\Behat\Context\Domain\Enrich\GridViewContext;
+use Pim\Behat\Context\Domain\Enrich\GridActionContext;
+use Pim\Behat\Context\Domain\Enrich\GridFilterContext;
 use Pim\Behat\Context\Domain\Enrich\GridPaginationContext;
 use Pim\Behat\Context\Domain\Enrich\PanelContext;
 use Pim\Behat\Context\Domain\Enrich\VariantGroupContext;
@@ -51,7 +55,6 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
         $this->useContext('catalogConfiguration', new CatalogConfigurationContext());
         $this->useContext('webUser', new WebUser());
         $this->useContext('webApi', new WebApiContext($parameters['base_url']));
-        $this->useContext('datagrid', new DataGridContext());
         $this->useContext('command', new CommandContext());
         $this->useContext('navigation', new NavigationContext($parameters['base_url']));
         $this->useContext('transformations', new TransformationContext());
@@ -66,7 +69,11 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
         $this->useContext('domain-export-profiles', new ExportProfilesContext());
         $this->useContext('domain-attribute-tab', new AttributeTabContext());
         $this->useContext('domain-panel', new PanelContext());
+        $this->useContext('domain-data-grid', new GridDataContext());
         $this->useContext('domain-pagination-grid', new GridPaginationContext());
+        $this->useContext('domain-filter-grid', new GridFilterContext());
+        $this->useContext('domain-action-grid', new GridActionContext());
+        $this->useContext('domain-view-grid', new GridViewContext());
 
         $this->setTimeout($parameters);
     }
