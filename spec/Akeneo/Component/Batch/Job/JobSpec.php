@@ -138,7 +138,7 @@ class ConfigurableStep implements StepInterface, ConfigurableInterface
         return 'my_name';
     }
 
-    public function execute(StepExecution $stepExecution)
+    public function execute(\Akeneo\Component\Batch\Model\StepExecution $stepExecution)
     {
     }
 
