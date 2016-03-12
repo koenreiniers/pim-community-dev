@@ -6,6 +6,8 @@ use Akeneo\Component\Batch\Model\JobExecution;
 use Akeneo\Component\Batch\Event\EventInterface;
 use Akeneo\Component\Batch\Job\BatchStatus;
 use Akeneo\Component\Batch\Job\JobRepositoryInterface;
+use Akeneo\Component\Batch\Model\StepExecution;
+use Akeneo\Component\Batch\Step\ConfigurableInterface;
 use Akeneo\Component\Batch\Step\StepInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -39,13 +41,13 @@ class JobSpec extends ObjectBehavior
         $this->getSteps()->shouldReturn([]);
     }
 
-    function it_sets_steps(StepInterface $stepOne,StepInterface $stepTwo)
+    function it_sets_steps(StepInterface $stepOne, StepInterface $stepTwo)
     {
         $this->setSteps([$stepOne, $stepTwo]);
         $this->getSteps()->shouldReturn([$stepOne, $stepTwo]);
     }
 
-    function it_gets_a_step_by_its_name(StepInterface $stepOne,StepInterface $stepTwo)
+    function it_gets_a_step_by_its_name(StepInterface $stepOne, StepInterface $stepTwo)
     {
         $this->setSteps([$stepOne, $stepTwo]);
         $stepOne->getName()->willReturn('one');
@@ -54,7 +56,7 @@ class JobSpec extends ObjectBehavior
         $this->getStep('three')->shouldReturn(null);
     }
 
-    function it_gets_step_names(StepInterface $stepOne,StepInterface $stepTwo)
+    function it_gets_step_names(StepInterface $stepOne, StepInterface $stepTwo)
     {
         $this->setSteps([$stepOne, $stepTwo]);
         $stepOne->getName()->willReturn('one');
@@ -62,7 +64,7 @@ class JobSpec extends ObjectBehavior
         $this->getStepNames()->shouldReturn(['one', 'two']);
     }
 
-    function it_adds_a_step(StepInterface $stepOne,StepInterface $stepTwo)
+    function it_adds_a_step(StepInterface $stepOne, StepInterface $stepTwo)
     {
         $this->setSteps([$stepOne]);
         $this->getSteps()->shouldReturn([$stepOne]);
@@ -77,7 +79,7 @@ class JobSpec extends ObjectBehavior
         $this->getJobRepository()->shouldReturn($jobRepository);
     }
 
-    function it_aggregates_the_steps_configuration(StepInterface $stepOne, StepInterface $stepTwo)
+    function it_aggregates_the_steps_configuration(ConfigurableStep $stepOne, ConfigurableStep $stepTwo)
     {
         $this->setSteps([$stepOne, $stepTwo]);
         $stepOne->getConfiguration()->willReturn(['conf1A' => 'value1A', 'conf1B' => 'value1B']);
@@ -86,7 +88,7 @@ class JobSpec extends ObjectBehavior
         $this->getConfiguration()->shouldReturn(['conf1A' => 'value1A', 'conf1B' => 'value1B', 'conf2' => 'value2']);
     }
 
-    function it_injects_the_configuration_in_steps(StepInterface $stepOne, StepInterface $stepTwo)
+    function it_injects_the_configuration_in_steps(ConfigurableStep $stepOne, ConfigurableStep $stepTwo)
     {
         $this->setSteps([$stepOne, $stepTwo]);
         $stepOne->setConfiguration(['conf1A' => 'value1A', 'conf2' => 'value2'])->shouldBeCalled();
@@ -126,5 +128,25 @@ class JobSpec extends ObjectBehavior
         $jobExecution->setEndTime(Argument::any())->shouldBeCalled();
 
         $this->execute($jobExecution);
+    }
+}
+
+class ConfigurableStep implements StepInterface, ConfigurableInterface
+{
+    public function getName()
+    {
+        return 'my_name';
+    }
+
+    public function execute(StepExecution $stepExecution)
+    {
+    }
+
+    public function getConfiguration()
+    {
+    }
+
+    public function setConfiguration(array $config)
+    {
     }
 }

@@ -23,7 +23,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  * @copyright 2013 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/MIT MIT
  */
-abstract class AbstractStep implements StepInterface, ConfigurableInterface
+abstract class AbstractStep implements StepInterface, ConfigurableInterface, StepElementsContainerInterface
 {
     /**
      * @var string

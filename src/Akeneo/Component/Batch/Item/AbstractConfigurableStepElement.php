@@ -2,6 +2,7 @@
 
 namespace Akeneo\Component\Batch\Item;
 
+use Akeneo\Component\Batch\Step\ConfigurableInterface;
 use Doctrine\Common\Util\Inflector;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
@@ -10,7 +11,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  *
  * @abstract
  */
-abstract class AbstractConfigurableStepElement
+abstract class AbstractConfigurableStepElement implements ConfigurableInterface
 {
     /**
      * Return an array of fields for the configuration form
