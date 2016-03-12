@@ -59,6 +59,8 @@ BC Breaks:
  - Remove getConfiguration() and setConfiguration() from Akeneo\Component\Batch\Step\AbstractStep
  - Remove getConfigurableStepElements from Akeneo\Component\Batch\Step\AbstractStep
 
+The class Akeneo\Component\Batch\Step\ItemStep does not rely anymore on AbstractConfigurableStepElement to be able to create simpler StepElements implementing only NamedStepElementInterface for instance (new interface).
+
 TODO:
 
 The Akeneo\Component\Batch\Step\StepInterface should not assume the use of Akeneo\Component\Batch\Item\AbstractConfigurableStepElement.

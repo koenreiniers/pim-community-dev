@@ -2,11 +2,11 @@
 
 namespace Akeneo\Component\Batch\Step;
 
-use Akeneo\Component\Batch\Item\AbstractConfigurableStepElement;
 use Akeneo\Component\Batch\Item\InvalidItemException;
 use Akeneo\Component\Batch\Item\ItemProcessorInterface;
 use Akeneo\Component\Batch\Item\ItemReaderInterface;
 use Akeneo\Component\Batch\Item\ItemWriterInterface;
+use Akeneo\Component\Batch\Item\NamedStepElementInterface;
 use Akeneo\Component\Batch\Model\StepExecution;
 
 /**
@@ -116,7 +116,7 @@ class ItemStep extends AbstractStep implements StepElementsContainerInterface, C
         $configuration = array();
 
         foreach ($stepElements as $stepElement) {
-            if ($stepElement instanceof AbstractConfigurableStepElement) {
+            if ($stepElement instanceof ConfigurableInterface) {
                 foreach ($stepElement->getConfiguration() as $key => $value) {
                     if (!isset($configuration[$key]) || $value) {
                         $configuration[$key] = $value;
@@ -140,7 +140,7 @@ class ItemStep extends AbstractStep implements StepElementsContainerInterface, C
         );
 
         foreach ($stepElements as $stepElement) {
-            if ($stepElement instanceof AbstractConfigurableStepElement) {
+            if ($stepElement instanceof ConfigurableInterface) {
                 $stepElement->setConfiguration($config);
             }
         }
@@ -272,7 +272,7 @@ class ItemStep extends AbstractStep implements StepElementsContainerInterface, C
         $element,
         InvalidItemException $e
     ) {
-        if ($element instanceof AbstractConfigurableStepElement) {
+        if ($element instanceof NamedStepElementInterface) {
             $warningName = $element->getName();
         } else {
             $warningName = get_class($element);

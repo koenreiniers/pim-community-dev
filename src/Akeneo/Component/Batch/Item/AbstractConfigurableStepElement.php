@@ -11,7 +11,7 @@ use Symfony\Component\PropertyAccess\PropertyAccess;
  *
  * @abstract
  */
-abstract class AbstractConfigurableStepElement implements ConfigurableInterface
+abstract class AbstractConfigurableStepElement implements NamedStepElementInterface, ConfigurableInterface
 {
     /**
      * Return an array of fields for the configuration form
