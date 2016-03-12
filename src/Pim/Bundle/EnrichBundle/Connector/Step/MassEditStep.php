@@ -52,14 +52,6 @@ class MassEditStep extends AbstractStep implements ConfigurableInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getConfigurableStepElements()
-    {
-        return [];
-    }
-
-    /**
      * @return TemporaryFileCleaner
      */
     public function getCleaner()

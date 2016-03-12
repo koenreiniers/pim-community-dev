@@ -23,7 +23,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  * @copyright 2013 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/MIT MIT
  */
-abstract class AbstractStep implements StepInterface, StepElementsContainerInterface
+abstract class AbstractStep implements StepInterface
 {
     /**
      * @var string
@@ -115,16 +115,6 @@ abstract class AbstractStep implements StepInterface, StepElementsContainerInter
      * @throws \Exception
      */
     abstract protected function doExecute(StepExecution $stepExecution);
-
-    /**
-     * Get the configurable step elements
-     *
-     * @return array
-     */
-    public function getConfigurableStepElements()
-    {
-        return array();
-    }
 
     /**
      * Template method for step execution logic
