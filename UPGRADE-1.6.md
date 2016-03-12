@@ -63,6 +63,11 @@ The class Akeneo\Component\Batch\Step\ItemStep does not rely anymore on Abstract
 
 TODO:
 
+Step :: getConfigurableStepElements is only used by StepConfigurationType
+StepElement :: getConfigurationFields is only used by StepElementConfigurationType
+
+Interfaces of Step or ItemStep can be shared as NamedInterface or ConfigurableInterface.
+
 The Akeneo\Component\Batch\Step\StepInterface should not assume the use of Akeneo\Component\Batch\Item\AbstractConfigurableStepElement.
 
 Another issue in the Batch Bundle is the way the 'batch_jobs.yml' files are parsed and systematically stored in the DIC.

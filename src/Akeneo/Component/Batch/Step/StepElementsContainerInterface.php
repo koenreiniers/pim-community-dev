@@ -15,6 +15,7 @@ interface StepElementsContainerInterface
      * Get the configurable step elements
      *
      * TODO: replace by getStepElements() and keep other method as deprecated
+     * TODO: only used by FormType, the system should be replaced by a registry
      *
      * @return array
      */
