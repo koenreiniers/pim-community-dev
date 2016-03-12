@@ -51,6 +51,11 @@ The Akeneo\Component\Batch\Step\StepInterface mixes lot of logic like getConfigu
 
 We can now define simple steps without elements or configuration.
 
+If you define a configurable Step, you need to implements ConfigurableInterface (not come anymore by default from AbstractStep).
+
+BC Breaks:
+ - Remove getConfiguration() and setConfiguration() from Akeneo\Component\Batch\Step\AbstractStep
+
 
 TODO:
 

@@ -4,6 +4,7 @@ namespace Pim\Component\Connector\Step;
 
 use Akeneo\Component\Batch\Model\StepExecution;
 use Akeneo\Component\Batch\Step\AbstractStep;
+use Akeneo\Component\Batch\Step\ConfigurableInterface;
 use Pim\Component\Connector\Step\TaskletInterface;
 
 /**
@@ -11,7 +12,7 @@ use Pim\Component\Connector\Step\TaskletInterface;
  * @copyright 2015 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class TaskletStep extends AbstractStep
+class TaskletStep extends AbstractStep implements ConfigurableInterface
 {
     /** @var array */
     protected $configuration;

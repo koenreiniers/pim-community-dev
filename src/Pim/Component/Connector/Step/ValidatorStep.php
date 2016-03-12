@@ -5,6 +5,7 @@ namespace Pim\Component\Connector\Step;
 use Akeneo\Component\Batch\Item\AbstractConfigurableStepElement;
 use Akeneo\Component\Batch\Model\StepExecution;
 use Akeneo\Component\Batch\Step\AbstractStep;
+use Akeneo\Component\Batch\Step\ConfigurableInterface;
 use Akeneo\Component\Batch\Step\StepElementsContainerInterface;
 use Pim\Component\Connector\Item\CharsetValidator;
 
@@ -15,7 +16,7 @@ use Pim\Component\Connector\Item\CharsetValidator;
  * @copyright 2014 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class ValidatorStep extends AbstractStep implements StepElementsContainerInterface
+class ValidatorStep extends AbstractStep implements ConfigurableInterface, StepElementsContainerInterface
 {
     /** @var CharsetValidator */
     protected $charsetValidator;
