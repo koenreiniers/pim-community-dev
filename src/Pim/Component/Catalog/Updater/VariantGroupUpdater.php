@@ -297,6 +297,8 @@ class VariantGroupUpdater implements ObjectUpdaterInterface
                     $originalValues[$code][] = $newValue;
                 }
             }
+
+            $originalValues[$code] = array_values($originalValues[$code]);
         }
 
         return $originalValues;

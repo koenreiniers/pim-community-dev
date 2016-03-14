@@ -2,6 +2,7 @@
 
 namespace Pim\Bundle\EnrichBundle\Normalizer;
 
+use Pim\Bundle\EnrichBundle\Provider\StructureVersion\StructureVersionProviderInterface;
 use Pim\Component\Catalog\Model\GroupInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -20,12 +21,19 @@ class GroupNormalizer implements NormalizerInterface
     /** @var NormalizerInterface */
     protected $groupNormalizer;
 
+    /** @var StructureVersionProviderInterface */
+    protected $structureVersionProvider;
+
     /**
-     * @param NormalizerInterface $groupNormalizer
+     * @param NormalizerInterface               $groupNormalizer
+     * @param StructureVersionProviderInterface $structureVersionProvider
      */
-    public function __construct(NormalizerInterface $groupNormalizer)
-    {
-        $this->groupNormalizer = $groupNormalizer;
+    public function __construct(
+        NormalizerInterface $groupNormalizer,
+        StructureVersionProviderInterface $structureVersionProvider
+    ) {
+        $this->groupNormalizer          = $groupNormalizer;
+        $this->structureVersionProvider = $structureVersionProvider;
     }
 
     /**
@@ -36,7 +44,8 @@ class GroupNormalizer implements NormalizerInterface
         $normalizedGroup = $this->groupNormalizer->normalize($group, 'json', $context);
 
         $normalizedGroup['meta'] = [
-            'id' => $group->getId()
+            'id'                => $group->getId(),
+            'structure_version' => $this->structureVersionProvider->getStructureVersion()
         ];
 
         return $normalizedGroup;
