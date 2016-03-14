@@ -8,6 +8,7 @@ use Pim\Component\Catalog\Repository\ChannelRepositoryInterface;
 use Pim\Component\Catalog\Repository\CurrencyRepositoryInterface;
 use Pim\Component\Catalog\Repository\LocaleRepositoryInterface;
 use Pim\Component\Connector\ArrayConverter\Flat\Product\AttributeColumnInfoExtractor;
+use Pim\Component\Connector\Reader\File\FileIteratorInterface;
 
 /**
  * Product csv reader
@@ -47,6 +48,7 @@ class CsvProductReader extends CsvReader
     /**
      * Constructor
      *
+     * @param FileIteratorInterface        $fileIterator
      * @param EntityManager                $entityManager
      * @param AttributeColumnInfoExtractor $fieldExtractor
      * @param string                       $attributeClass
@@ -55,6 +57,7 @@ class CsvProductReader extends CsvReader
      * @param string                       $currencyClass
      */
     public function __construct(
+        FileIteratorInterface $fileIterator,
         EntityManager $entityManager,
         AttributeColumnInfoExtractor $fieldExtractor,
         $attributeClass,
@@ -62,6 +65,8 @@ class CsvProductReader extends CsvReader
         $localeClass,
         $currencyClass
     ) {
+        parent::__construct($fileIterator);
+
         $this->fieldExtractor      = $fieldExtractor;
         $this->attributeRepository = $entityManager->getRepository($attributeClass);
         $this->channelRepository   = $entityManager->getRepository($channelClass);
