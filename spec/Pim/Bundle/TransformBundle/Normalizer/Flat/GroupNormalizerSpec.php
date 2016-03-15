@@ -28,10 +28,10 @@ class GroupNormalizerSpec extends ObjectBehavior
         $this->shouldBeAnInstanceOf('Symfony\Component\Serializer\SerializerAwareInterface');
     }
 
-    function it_only_supports_csv_normalization_of_group($group)
+    function it_only_supports_csv_and_flat_normalization_of_group($group)
     {
         $this->supportsNormalization($group, 'csv')->shouldReturn(true);
-        $this->supportsNormalization($group, 'flat')->shouldReturn(false);
+        $this->supportsNormalization($group, 'flat')->shouldReturn(true);
         $this->supportsNormalization($group, 'json')->shouldReturn(false);
     }
 

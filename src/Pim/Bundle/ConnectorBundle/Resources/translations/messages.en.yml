@@ -59,6 +59,12 @@ pim_connector:
         xlsx_product_export:
             title: Product export in XLSX
             export.title: Product export
+        xlsx_group_export:
+            title: Group export in XLSX
+            export.title: Group export
+        xlsx_variant_group_export:
+            title: Variant group export in XLSX
+            export.title: Variant group export
     steps:
 
         dummy_reader.title:                  Dummy reader
