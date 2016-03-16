@@ -23,14 +23,14 @@ extensions:
         module: pim/product-edit-form/back-to-grid
         parent: pim-variant-group-edit-form
         targetZone: buttons
-        aclResourceId: pim_enrich_product_index
+        aclResourceId: pim_enrich_variant_group_index
         position: 80
 
     pim-variant-group-edit-form-delete:
         module: pim/product-edit-form/delete
         parent: pim-variant-group-edit-form
         targetZone: buttons
-        aclResourceId: pim_enrich_product_remove
+        aclResourceId: pim_enrich_variant_group_remove
         position: 100
 
     pim-variant-group-edit-form-save-buttons:
@@ -67,7 +67,7 @@ extensions:
         module: pim/product-edit-form/attributes
         parent: pim-variant-group-edit-form-form-tabs
         targetZone: container
-        aclResourceId: pim_enrich_product_edit_attributes
+        aclResourceId: pim_enrich_variant_group_edit_attributes
         position: 90
 
     pim-variant-group-edit-form-attribute-group-selector:
@@ -80,7 +80,7 @@ extensions:
         module: pim/product-edit-form/attributes/add-attribute
         parent: pim-variant-group-edit-form-attributes
         targetZone: other-actions
-        aclResourceId: pim_enrich_product_add_attribute
+        aclResourceId: pim_enrich_variant_group_add_attributes
         position: 90
 
     pim-variant-group-edit-form-copy:
@@ -130,3 +130,21 @@ extensions:
         parent: pim-variant-group-edit-form-copy
         targetZone: context-selectors
         position: 110
+
+    pim-variant-group-edit-form-properties:
+        module: pim/variant-group-edit-form/properties
+        parent: pim-variant-group-edit-form-form-tabs
+        targetZone: container
+        position: 100
+
+    pim-variant-group-edit-form-history:
+        module: pim/common/tab/history
+        parent: pim-variant-group-edit-form-form-tabs
+        targetZone: container
+        position: 110
+
+    pim-variant-group-edit-form-products:
+        module: pim/variant-group-edit-form/products
+        parent: pim-variant-group-edit-form-form-tabs
+        targetZone: container
+        position: 80

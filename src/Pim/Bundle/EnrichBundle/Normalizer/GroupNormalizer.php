@@ -43,6 +43,10 @@ class GroupNormalizer implements NormalizerInterface
     {
         $normalizedGroup = $this->groupNormalizer->normalize($group, 'json', $context);
 
+        $normalizedGroup['products'] = array_map(function ($product) {
+            return $product->getId();
+        }, $group->getProducts()->toArray());
+
         $normalizedGroup['meta'] = [
             'id'                => $group->getId(),
             'structure_version' => $this->structureVersionProvider->getStructureVersion()

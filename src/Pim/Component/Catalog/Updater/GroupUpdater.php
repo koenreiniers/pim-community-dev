@@ -19,12 +19,19 @@ class GroupUpdater implements ObjectUpdaterInterface
     /** @var GroupTypeRepositoryInterface */
     protected $groupTypeRepository;
 
+    /** @var ProductQueryBuilderInterface */
+    protected $productQueryBuilder;
+
     /**
      * @param GroupTypeRepositoryInterface $groupTypeRepository
+     * @param ProductQueryBuilderInterface $productQueryBuilder
      */
-    public function __construct(GroupTypeRepositoryInterface $groupTypeRepository)
-    {
+    public function __construct(
+        GroupTypeRepositoryInterface $groupTypeRepository,
+        ProductQueryBuilderInterface $productQueryBuilder
+    ) {
         $this->groupTypeRepository = $groupTypeRepository;
+        $this->productQueryBuilder = $productQueryBuilder;
     }
 
     /**
@@ -76,6 +83,9 @@ class GroupUpdater implements ObjectUpdaterInterface
             case 'labels':
                 $this->setLabels($group, $data);
                 break;
+            case 'products':
+                $this->setProducts($group, $data);
+                break;
         }
     }
 
@@ -117,5 +127,16 @@ class GroupUpdater implements ObjectUpdaterInterface
             $translation = $group->getTranslation();
             $translation->setLabel($label);
         }
+    }
+
+    /**
+     * @param GroupInterface $group
+     * @param array          $labels
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function setProducts(GroupInterface $group, array $productIds)
+    {
+        // $this->productQueryBuilder->addFilter('id', )
     }
 }

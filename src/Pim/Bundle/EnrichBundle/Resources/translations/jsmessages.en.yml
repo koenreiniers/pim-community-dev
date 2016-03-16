@@ -279,6 +279,17 @@ pim_enrich:
             switch:
                 "no": "No"
                 "yes": "Yes"
+        variant_group:
+            tab:
+                properties:
+                    title: Properties
+                    general: General properties
+                    code: Code
+                    type: Type
+                    axis: Axis
+                    label_translations: Label translations
+                history:
+                    title: History
     mass_edit_action:
         edit_common_attributes:
             description: The selected product's attributes will be edited with the following data for the locale <span class="highlight">{{ locale }}</span> and the channel <span class="highlight">{{ channel }}</span>, chosen in the products grid.

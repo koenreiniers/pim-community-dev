@@ -2,14 +2,17 @@
 
 define([
         'pim/form',
-        'text!pim/template/variant-group/tab/attributes'
+        'pim/fetcher-registry',
+        'text!pim/template/variant-group/tab/properties',
+        'jquery.select2'
     ],
     function(
         BaseForm,
+        FetcherRegistry,
         template
     ) {
         return BaseForm.extend({
-            className: 'tabbable tabs-left system',
+            className: 'properties',
             template: _.template(template),
 
             /**
@@ -18,11 +21,8 @@ define([
             configure: function () {
                 this.trigger('tab:register', {
                     code: this.code,
-                    label: _.__('oro_config.form.config.tab.system.title')
+                    label: _.__('pim_enrich.form.variant_group.tab.properties.title')
                 });
-
-                this.onExtensions('group:change', this.render.bind(this));
-                this.getExtension('oro-system-config-group-selector').setElements(this.getGroups());
 
                 return BaseForm.prototype.configure.apply(this, arguments);
             },
@@ -31,29 +31,17 @@ define([
              * {@inheritdoc}
              */
             render: function () {
-                this.$el.html(this.template({}));
+                FetcherRegistry.getFetcher('locale').fetchAll().then(function (locales) {
+                    this.$el.html(this.template({
+                        model: this.getFormData(),
+                        locales: locales
+                    }));
 
-                this.initializeDropZones();
-                var groupSelector = this.getExtension('oro-system-config-group-selector');
-                this.renderExtension(groupSelector.getCurrentElement().extension);
-                this.renderExtension(groupSelector);
+                    this.$el.find('select.select2').select2({});
+                }.bind(this));
+
+                this.renderExtensions();
             },
-
-            /**
-             * {@inheritdoc}
-             */
-            getGroups: function () {
-                var groups = {};
-                _.each(_.filter(this.extensions, {isGroup: true}), function (extension) {
-                    groups[extension.code] = {
-                        'code':      extension.code,
-                        'label':     extension.label,
-                        'extension': extension
-                    };
-                });
-
-                return groups;
-            }
         });
     }
 );
