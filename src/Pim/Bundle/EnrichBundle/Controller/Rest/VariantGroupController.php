@@ -128,7 +128,6 @@ class VariantGroupController
     public function postAction(Request $request, $id)
     {
         $variantGroup = $this->variantGroupRepo->findOneBy(['id' => (int) $id]);
-
         if (!$variantGroup) {
             throw new NotFoundHttpException(sprintf('Variant group with id "%s" not found', $id));
         }
@@ -153,7 +152,7 @@ class VariantGroupController
         $violations->addAll($this->localizedConverter->getViolations());
 
         if (0 === $violations->count()) {
-            $this->variantGroupSaver->save($variantGroup);
+            $this->variantGroupSaver->save($variantGroup, ['flush' => true]);
 
             // $normalizationContext = $this->userContext->toArray() + [
             //     'filter_type'                => 'pim.internal_api.product_value.view',

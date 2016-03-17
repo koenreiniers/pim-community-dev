@@ -31,14 +31,7 @@ define([
              * {@inheritdoc}
              */
             render: function () {
-                FetcherRegistry.getFetcher('locale').fetchAll().then(function (locales) {
-                    this.$el.html(this.template({
-                        model: this.getFormData(),
-                        locales: locales
-                    }));
-
-                    this.$el.find('select.select2').select2({});
-                }.bind(this));
+                this.$el.html(this.template({}));
 
                 this.renderExtensions();
             },

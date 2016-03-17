@@ -78,6 +78,14 @@ define([
             removeElement: function (element) {
                 this.selection = _.without(this.selection, parseInt(element));
                 this.trigger('grid:selection:updated', this.selection);
+            },
+
+            /**
+             * Ask for a refresh of the grid (aware that we should not call the mediator for that but we don't have
+             * the choice for now)
+             */
+            refresh: function () {
+                mediator.trigger('datagrid:doRefresh:' + this.alias);
             }
         });
     }

@@ -45,6 +45,10 @@ define([
                     this.productGroupGrid.on('grid:selection:updated', function (selection) {
                         this.setData('products', selection);
                     }.bind(this));
+
+                    this.getRoot().on('pim_enrich:form:entity:post_fetch', function () {
+                        this.productGroupGrid.refresh();
+                    }.bind(this));
                 }
 
                 this.$el.empty().append(this.productGroupGrid.render().$el);
