@@ -279,6 +279,8 @@ class ORMProductReader extends AbstractConfigurableStepElement implements Produc
 
         $currentIds = array_slice($this->ids, $this->offset, $this->limit);
 
+        echo count($currentIds).' prods '.(memory_get_usage(true) / 1024 / 1024) . 'MB' . PHP_EOL;
+
         if (!empty($currentIds)) {
             $items = $this->repository->findByIds($currentIds);
             $products = new \ArrayIterator($items);
