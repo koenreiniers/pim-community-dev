@@ -5,6 +5,10 @@
 - PIM-5592: the product grid keeps the page number when you go back to it
 - PIM-5096: introduces the XLSX quick export
 
+## Scalability improvements
+
+- PIM-5542: Optimize the Family normalization
+
 ## Technical improvements
 
 - PIM-5589: introduce a channels, attribute groups, group types, locales and currencies import using the new import system introduced in v1.4
@@ -110,3 +114,4 @@
 - Change constructor of `Pim/Component/Catalog/Repository/ChannelRepositoryInterface` replace argument `Pim\Bundle\CatalogBundle\Manager\ChannelManager` by `Pim\Component\Catalog\Repository\ChannelRepositoryInterface`.
 - Rename `Pim\Component\Catalog\Repository\ChannelRepositoryInterface::getChannelChoices` to `Pim\Component\Catalog\Repository\ChannelRepositoryInterface::getLabelsIndexedByCode`
 - Change constructor of `Akeneo\Bundle\BatchBundle\Job\DoctrineJobRepository` to inject two more arguments `%akeneo_batch.entity.job_instance.class%` and `%pim_import_export.repository.job_instance.class%`
+- Change constructor of `Akeneo\Bundle\BatchBundle\Job\Pim\Bundle\TransformBundle\Normalizer\Structured\FamilyNormalizer` to inject two more dependendies `Pim\Component\Catalog\Repository\AttributeRepositoryInterface` and `Pim\Component\Catalog\Repository\AttributeRequirementRepositoryInterface`

@@ -3,20 +3,23 @@
 namespace spec\Pim\Bundle\TransformBundle\Normalizer\Flat;
 
 use PhpSpec\ObjectBehavior;
-use Pim\Bundle\CatalogBundle\Entity\AttributeRequirement;
+use Pim\Bundle\CatalogBundle\Filter\CollectionFilterInterface;
 use Pim\Component\Catalog\Model\AttributeInterface;
-use Pim\Component\Catalog\Model\ChannelInterface;
 use Pim\Component\Catalog\Model\FamilyInterface;
 use Pim\Bundle\TransformBundle\Normalizer\Flat\TranslationNormalizer;
+use Pim\Component\Catalog\Repository\AttributeRepositoryInterface;
+use Pim\Component\Catalog\Repository\AttributeRequirementRepositoryInterface;
 use Prophecy\Argument;
 
 class FamilyNormalizerSpec extends ObjectBehavior
 {
     function let(
-        TranslationNormalizer $transnormalizer,
-        FamilyInterface $family
+        TranslationNormalizer $normalizer,
+        CollectionFilterInterface $filter,
+        AttributeRepositoryInterface $attributeRepository,
+        AttributeRequirementRepositoryInterface $requirementsRepository
     ) {
-        $this->beConstructedWith($transnormalizer);
+        $this->beConstructedWith($normalizer, $filter, $attributeRepository, $requirementsRepository);
     }
 
     function it_is_initializable()
@@ -29,7 +32,7 @@ class FamilyNormalizerSpec extends ObjectBehavior
         $this->shouldImplement('Symfony\Component\Serializer\Normalizer\NormalizerInterface');
     }
 
-    function it_supports_family_normalization_into_csv($family)
+    function it_supports_family_normalization_into_csv(FamilyInterface $family)
     {
         $this->supportsNormalization($family, 'csv')->shouldBe(true);
         $this->supportsNormalization($family, 'json')->shouldBe(false);
@@ -37,29 +40,28 @@ class FamilyNormalizerSpec extends ObjectBehavior
     }
 
     function it_normalizes_family(
-        $transnormalizer,
-        $family,
+        $normalizer,
+        $attributeRepository,
+        $requirementsRepository,
+        $filter,
+        FamilyInterface $family,
         AttributeInterface $name,
-        AttributeInterface $price,
-        AttributeRequirement $ecommercereq,
-        AttributeRequirement $mobilereq,
-        ChannelInterface $ecommerce,
-        ChannelInterface $mobile
+        AttributeInterface $description,
+        AttributeInterface $price
     ) {
-        $transnormalizer->normalize(Argument::cetera())->willReturn([]);
+        $attributeRepository->getAttributesByFamily($family)->willReturn([$name, $description, $price]);
+        $requirementsRepository->getRequiredAttributesCodesByFamily($family)->willReturn([
+            ['attribute' => 'name', 'channel' => 'ecommerce'],
+        ]);
+
+        $filter->filterCollection([$name, $description, $price], 'pim.internal_api.attribute.view')
+            ->willReturn([$name, $price]);
+
+        $normalizer->normalize(Argument::cetera())->willReturn([]);
         $family->getCode()->willReturn('mugs');
-        $family->getAttributes()->willReturn([$name, $price]);
+        $family->getAttributeAsLabel()->willReturn($name);
         $name->getCode()->willReturn('name');
         $price->getCode()->willReturn('price');
-        $family->getAttributeAsLabel()->willReturn($name);
-        $family->getAttributeRequirements()->willReturn([$ecommercereq, $mobilereq]);
-        $ecommercereq->getChannel()->willReturn($ecommerce);
-        $mobilereq->getChannel()->willReturn($mobile);
-        $ecommercereq->isRequired()->willReturn(true);
-        $mobilereq->isRequired()->willReturn(false);
-        $ecommerce->getCode()->willReturn('ecommerce');
-        $mobile->getCode()->willReturn('mobile');
-        $ecommercereq->getAttribute()->willReturn($name);
 
         $this->normalize($family)->shouldReturn(
             [
@@ -67,7 +69,6 @@ class FamilyNormalizerSpec extends ObjectBehavior
                 'attributes'             => 'name,price',
                 'attribute_as_label'     => 'name',
                 'requirements-ecommerce' => 'name',
-                'requirements-mobile'    => '',
             ]
         );
     }
