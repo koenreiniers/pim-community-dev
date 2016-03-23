@@ -24,7 +24,6 @@ class GridCapableDecorator extends ElementDecorator
 
     /** @var array */
     protected $decorators = [
-        'Pim\Behat\Decorator\GridDecorator\ViewDecorator',
         'Pim\Behat\Decorator\GridDecorator\DataDecorator',
         'Pim\Behat\Decorator\GridDecorator\PaginationDecorator',
         'Pim\Behat\Decorator\GridDecorator\ActionDecorator',
@@ -50,10 +49,5 @@ class GridCapableDecorator extends ElementDecorator
         );
 
         return $this->decorate($grid->getParent()->getParent()->getParent()->getParent(), $this->decorators);
-    }
-
-    public function getViews()
-    {
-        return null;
     }
 }

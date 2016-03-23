@@ -65,6 +65,7 @@ class NavigationContext extends PimContext implements PageObjectAwareInterface
     protected $pageDecorators = [
         'Pim\Behat\Decorator\PageDecorator\GridCapableDecorator',
         'Pim\Behat\Decorator\PageDecorator\FilterCapableDecorator',
+        'Pim\Behat\Decorator\PageDecorator\ViewCapableDecorator',
     ];
 
     /**

@@ -16,7 +16,7 @@ use Pim\Behat\Context\PimContext;
  * @copyright 2016 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class GridViewContext extends PimContext
+class ViewContext extends PimContext
 {
     use SpinCapableTrait;
 
@@ -27,7 +27,8 @@ class GridViewContext extends PimContext
      */
     public function iApplyTheView($viewLabel)
     {
-        $this->getCurrentPage()->applyView($viewLabel);
+        $this->getCurrentPage()->getCurrentViewSelector()->showViewList($viewLabel);
+        $this->getCurrentPage()->getCurrentViewList()->applyView($viewLabel);
         $this->wait();
     }
 
@@ -36,7 +37,7 @@ class GridViewContext extends PimContext
      */
     public function iDeleteTheView()
     {
-        $this->getCurrentPage()->find('css', '#remove-view')->click();
+        $this->getCurrentPage()->getCurrentViewSelector()->deleteView();
         $this->wait();
     }
 
@@ -49,7 +50,7 @@ class GridViewContext extends PimContext
      */
     public function iCreateTheView(TableNode $table)
     {
-        $this->getCurrentPage()->find('css', '#create-view')->click();
+        $this->getCurrentPage()->getCurrentViewSelector()->createView();
 
         return [
             new Step\Then('I fill in the following information in the popin:', $table),
@@ -62,7 +63,7 @@ class GridViewContext extends PimContext
      */
     public function iUpdateTheView()
     {
-        $this->getCurrentPage()->find('css', '#update-view')->click();
+        $this->getCurrentPage()->getCurrentViewSelector()->updateView();
         $this->wait();
     }
 
@@ -76,7 +77,7 @@ class GridViewContext extends PimContext
      */
     public function iShouldSeeTheView($not, $viewLabel)
     {
-        $view = $this->getCurrentPage()->findView($viewLabel);
+        $view = $this->getCurrentPage()->getCurrentViewList()->findView($viewLabel);
 
         if (('' !== $not && null !== $view) || ('' === $not && null === $view)) {
             throw $this->getMainContext()->createExpectationException(
@@ -88,5 +89,4 @@ class GridViewContext extends PimContext
             );
         }
     }
-
 }

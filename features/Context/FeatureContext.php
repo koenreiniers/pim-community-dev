@@ -12,7 +12,7 @@ use Context\Spin\SpinCapableTrait;
 use Pim\Behat\Context\Domain\Collect\ImportProfilesContext;
 use Pim\Behat\Context\Domain\Enrich\AttributeTabContext;
 use Pim\Behat\Context\Domain\Enrich\GridDataContext;
-use Pim\Behat\Context\Domain\Enrich\GridViewContext;
+use Pim\Behat\Context\Domain\Enrich\ViewContext;
 use Pim\Behat\Context\Domain\Enrich\GridActionContext;
 use Pim\Behat\Context\Domain\Enrich\GridFilterContext;
 use Pim\Behat\Context\Domain\Enrich\GridPaginationContext;
@@ -73,7 +73,7 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
         $this->useContext('domain-pagination-grid', new GridPaginationContext());
         $this->useContext('domain-filter-grid', new GridFilterContext());
         $this->useContext('domain-action-grid', new GridActionContext());
-        $this->useContext('domain-view-grid', new GridViewContext());
+        $this->useContext('domain-view-grid', new ViewContext());
 
         $this->setTimeout($parameters);
     }
