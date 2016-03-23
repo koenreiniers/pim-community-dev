@@ -3,7 +3,9 @@
 namespace Pim\Bundle\TransformBundle\Normalizer\Structured;
 
 use Pim\Bundle\CatalogBundle\Filter\CollectionFilterInterface;
+use Pim\Bundle\CatalogBundle\Repository\AttributeRequirementRepositoryInterface;
 use Pim\Component\Catalog\Model\FamilyInterface;
+use Pim\Component\Catalog\Repository\AttributeRepositoryInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
@@ -24,17 +26,26 @@ class FamilyNormalizer implements NormalizerInterface
     /** @var CollectionFilterInterface */
     protected $collectionFilter;
 
+    /** @var AttributeRepositoryInterface */
+    protected $attributeRepository;
+
     /**
      * Constructor
      *
-     * @param TranslationNormalizer          $transNormalizer
-     * @param CollectionFilterInterface|null $collectionFilter
+     * @param TranslationNormalizer                   $transNormalizer
+     * @param AttributeRepositoryInterface            $attributeRepository
+     * @param AttributeRequirementRepositoryInterface $requirementsRepository
+     * @param CollectionFilterInterface|null          $collectionFilter
      */
     public function __construct(
         TranslationNormalizer $transNormalizer,
+        AttributeRepositoryInterface $attributeRepository,
+        AttributeRequirementRepositoryInterface $requirementsRepository,
         CollectionFilterInterface $collectionFilter = null
     ) {
-        $this->transNormalizer  = $transNormalizer;
+        $this->transNormalizer = $transNormalizer;
+        $this->attributeRepository = $attributeRepository;
+        $this->requirementsRepository = $requirementsRepository;
         $this->collectionFilter = $collectionFilter;
     }
 
@@ -73,15 +84,14 @@ class FamilyNormalizer implements NormalizerInterface
      */
     protected function normalizeAttributes(FamilyInterface $family)
     {
-        $filteredAttributes = $this->collectionFilter ?
-            $this->collectionFilter->filterCollection(
-                $family->getAttributes(),
-                'pim.internal_api.attribute.view'
-            ) :
-            $family->getAttributes();
+        $attributes = $this->attributeRepository->getAttributesCodeAndGroupIdByFamily($family);
+
+        if (null !== $this->collectionFilter) {
+            $attributes = $this->collectionFilter->filterCollection($attributes, 'pim.internal_api.attribute.view');
+        }
 
         $normalizedAttributes = [];
-        foreach ($filteredAttributes as $attribute) {
+        foreach ($attributes as $attribute) {
             $normalizedAttributes[] = $attribute->getCode();
         }
 
@@ -97,15 +107,14 @@ class FamilyNormalizer implements NormalizerInterface
      */
     protected function normalizeRequirements(FamilyInterface $family)
     {
+        $requirements = $this->requirementsRepository->getRequiredAttributesCodesByFamily($family);
         $required = [];
-        foreach ($family->getAttributeRequirements() as $requirement) {
-            $channelCode = $requirement->getChannel()->getCode();
-            if (!isset($required['requirements-' . $channelCode])) {
-                $required['requirements-' . $channelCode] = [];
+        foreach ($requirements as $requirement) {
+            if (!isset($required['requirements-' . $requirement['channel']])) {
+                $required['requirements-' . $requirement['channel']] = [];
             }
-            if ($requirement->isRequired()) {
-                $required['requirements-' . $channelCode][] = $requirement->getAttribute()->getCode();
-            }
+
+            $required['requirements-' . $requirement['channel']][] = $requirement['attribute'];
         }
 
         return $required;
