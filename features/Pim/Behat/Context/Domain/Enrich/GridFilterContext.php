@@ -102,11 +102,11 @@ class GridFilterContext extends PimContext
 
         foreach ($filters as $filter) {
             if ($available && !$filterManager->isFilterAvailable($filter)) {
-                throw $this->createExpectationException(
+                throw $this->getMainContext()->createExpectationException(
                     sprintf('Filter "%s" should be available.', $filter)
                 );
             } elseif (!$available && $filterManager->isFilterAvailable($filter)) {
-                throw $this->createExpectationException(
+                throw $this->getMainContext()->createExpectationException(
                     sprintf('Filter "%s" should not be available.', $filter)
                 );
             }

@@ -39,13 +39,13 @@ class ViewDecorator extends ElementDecorator
     public function findView($viewLabel)
     {
         $this
-            ->getElement('View selector')
+            ->find('css', $this->selectors['View selector'])
             ->getParent()
             ->find('css', 'button.pimmultiselect')
             ->click();
 
         return $this
-            ->getElement('Views list')
+            ->find('css', $this->selectors['Views list'])
             ->find('css', sprintf('label:contains("%s")', $viewLabel));
     }
 

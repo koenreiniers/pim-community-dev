@@ -2,6 +2,10 @@
 
 namespace Pim\Behat\Context\Domain\Enrich;
 
+use Behat\Behat\Context\Step;
+use Behat\Behat\Context\Step\Then;
+use Behat\Gherkin\Node\TableNode;
+use Behat\Mink\Exception\ExpectationException;
 use Context\Spin\SpinCapableTrait;
 use Pim\Behat\Context\PimContext;
 
@@ -23,7 +27,7 @@ class GridViewContext extends PimContext
      */
     public function iApplyTheView($viewLabel)
     {
-        $this->datagrid->applyView($viewLabel);
+        $this->getCurrentPage()->applyView($viewLabel);
         $this->wait();
     }
 
@@ -72,10 +76,10 @@ class GridViewContext extends PimContext
      */
     public function iShouldSeeTheView($not, $viewLabel)
     {
-        $view = $this->datagrid->findView($viewLabel);
+        $view = $this->getCurrentPage()->findView($viewLabel);
 
         if (('' !== $not && null !== $view) || ('' === $not && null === $view)) {
-            throw $this->createExpectationException(
+            throw $this->getMainContext()->createExpectationException(
                 sprintf(
                     'View "%s" should%s be available.',
                     $viewLabel,

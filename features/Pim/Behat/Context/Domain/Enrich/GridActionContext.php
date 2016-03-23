@@ -40,7 +40,7 @@ class GridActionContext extends PimContext
         $action = ucfirst(strtolower($actionName));
 
         if ($not === $this->getCurrentPage()->getCurrentGrid()->findAction($element, $action)) {
-            throw $this->createExpectationException(
+            throw $this->getMainContext()->createExpectationException(
                 sprintf(
                     'Expecting action "%s" on the row which containe "%s", but none found.',
                     $action,

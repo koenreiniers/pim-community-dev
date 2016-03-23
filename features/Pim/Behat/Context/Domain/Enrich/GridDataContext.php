@@ -125,7 +125,7 @@ class GridDataContext extends PimContext
 
         $countColumns = $this->getCurrentPage()->getCurrentGrid()->countColumns();
         if ($expectedColumns !== $countColumns) {
-            throw $this->createExpectationException(
+            throw $this->getMainContext()->createExpectationException(
                 sprintf('Expected %d columns but contains %d', $expectedColumns, $countColumns)
             );
         }
@@ -134,7 +134,7 @@ class GridDataContext extends PimContext
         foreach ($columns as $column) {
             $position = $this->getCurrentPage()->getCurrentGrid()->getColumnPosition($column, false, false);
             if ($expectedPosition++ !== $position) {
-                throw $this->createExpectationException(
+                throw $this->getMainContext()->createExpectationException(
                     sprintf(
                         'Column "%s" was expected in position %d, but was at %d',
                         $column,
@@ -159,7 +159,7 @@ class GridDataContext extends PimContext
         $columnName = strtoupper($columnName);
 
         if (!$this->getCurrentPage()->getCurrentGrid()->isSortedAndOrdered($columnName, $order)) {
-            throw $this->createExpectationException(
+            throw $this->getMainContext()->createExpectationException(
                 sprintf('The rows are not sorted %s by column %s', $order, $columnName)
             );
         }
@@ -223,7 +223,7 @@ class GridDataContext extends PimContext
                 $this->getCurrentPage()->getCurrentGrid()->getColumnSorter($columnName);
             }
         } catch (\InvalidArgumentException $e) {
-            throw $this->createExpectationException($e->getMessage());
+            throw $this->getMainContext()->createExpectationException($e->getMessage());
         }
     }
 
@@ -255,7 +255,7 @@ class GridDataContext extends PimContext
 
         foreach ($elements as $element) {
             if (!$this->getCurrentPage()->getCurrentGrid()->getRow($element)) {
-                throw $this->createExpectationException(sprintf('Entity "%s" not found', $element));
+                throw $this->getMainContext()->createExpectationException(sprintf('Entity "%s" not found', $element));
             }
         }
     }
@@ -283,7 +283,7 @@ class GridDataContext extends PimContext
 
         foreach ($this->getMainContext()->listToArray($entities) as $entity) {
             if ($this->getCurrentPage()->getCurrentGrid()->hasRow($entity)) {
-                throw $this->createExpectationException(
+                throw $this->getMainContext()->createExpectationException(
                     sprintf('Entity "%s" should not be seen', $entity)
                 );
             }
@@ -319,7 +319,7 @@ class GridDataContext extends PimContext
             $checkbox = $gridRow->find('css', 'td.boolean-cell input[type="checkbox"]:not(:disabled)');
 
             if (!$checkbox) {
-                throw $this->createExpectationException(sprintf('Unable to find a checkbox for row %s', $row));
+                throw $this->getMainContext()->createExpectationException(sprintf('Unable to find a checkbox for row %s', $row));
             }
 
             $checkbox->check();
@@ -342,7 +342,7 @@ class GridDataContext extends PimContext
             $checkbox = $gridRow->find('css', 'td.boolean-cell input[type="checkbox"]:not(:disabled)');
 
             if (!$checkbox) {
-                throw $this->createExpectationException(sprintf('Unable to find a checkbox for row %s', $row));
+                throw $this->getMainContext()->createExpectationException(sprintf('Unable to find a checkbox for row %s', $row));
             }
 
             $checkbox->uncheck();
@@ -365,11 +365,11 @@ class GridDataContext extends PimContext
             $checkbox = $gridRow->find('css', 'td.boolean-cell input[type="checkbox"]:not(:disabled)');
 
             if (!$checkbox) {
-                throw $this->createExpectationException(sprintf('Unable to find a checkbox for row %s', $row));
+                throw $this->getMainContext()->createExpectationException(sprintf('Unable to find a checkbox for row %s', $row));
             }
 
             if (!$checkbox->isChecked()) {
-                throw $this->createExpectationException(sprintf('Expecting row %s to be checked', $row));
+                throw $this->getMainContext()->createExpectationException(sprintf('Expecting row %s to be checked', $row));
             }
         }
     }
@@ -391,11 +391,11 @@ class GridDataContext extends PimContext
             $checkbox = $gridRow->find('css', 'td.boolean-cell input[type="checkbox"]:not(:disabled)');
 
             if (!$checkbox) {
-                throw $this->createExpectationException(sprintf('Unable to find a checkbox for row %s', $row));
+                throw $this->getMainContext()->createExpectationException(sprintf('Unable to find a checkbox for row %s', $row));
             }
 
             if ($checkbox->isChecked()) {
-                throw $this->createExpectationException(sprintf('Expecting row %s to be checked', $row));
+                throw $this->getMainContext()->createExpectationException(sprintf('Expecting row %s to be checked', $row));
             }
         }
     }
