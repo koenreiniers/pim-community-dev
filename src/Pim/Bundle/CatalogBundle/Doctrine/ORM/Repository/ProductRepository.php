@@ -649,7 +649,7 @@ class ProductRepository extends EntityRepository implements
 
         $groupIds = $query->getScalarResult();
 
-        $groupIds = array_reduce($groupIds,function($carry, $item) {
+        $groupIds = array_reduce($groupIds, function ($carry, $item) {
             if (isset($item['id'])) {
                 $carry[] = $item['id'];
             }
