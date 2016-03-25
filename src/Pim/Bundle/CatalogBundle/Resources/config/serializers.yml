@@ -226,14 +226,6 @@ services:
         tags:
             - { name: pim_serializer.normalizer, priority: 90 }
 
-    pim_serializer.denormalizer.number:
-        class: %pim_serializer.denormalizer.number.class%
-        arguments:
-            - ['pim_catalog_number']
-            - '@pim_catalog.localization.localizer.number'
-        tags:
-            - { name: pim_serializer.normalizer, priority: 90 }
-
     pim_serializer.denormalizer.datetime:
         class: %pim_serializer.denormalizer.datetime.class%
         arguments:
